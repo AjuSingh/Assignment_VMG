@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     Param,
     ParseIntPipe,
@@ -48,6 +49,13 @@ export class TaskController {
         @Body() createTeamDetails: CreateTeamDto,
     ) {
         return this.taskService.createTeam(createTeamDetails);
+    }
+
+    @Delete('team/:id')
+    async deleteTeamById(
+        @Param('id', ParseIntPipe) id: number,
+    ) {
+        await this.taskService.deleteTeam(id);
     }
 
 

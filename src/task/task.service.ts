@@ -55,9 +55,7 @@ export class TaskService {
 
     async getAssignedTask(userId: number): Promise<User> {
         return await this.userRepository.findOne({
-            relations: {
-                tasks: true
-            },
+            relations: ['tasks', 'tasks.status'],
             where: { id: userId }
         })
     }
@@ -68,6 +66,11 @@ export class TaskService {
         team.name = teamDetails.name;
         team.members = members;
         return await this.teamRepository.save(team);
+    }
+
+
+    async deleteTeam(id:number) {
+        await this.teamRepository.delete(id)
     }
 
 
